@@ -113,10 +113,10 @@ end
 # puts "my_map method : #{[1, 2, 3, 4].my_map(&test_block)}"
 
 # my_inject
-puts "my_inject method : #{[2, 4, 5].my_inject(2) { |result, element| result + element }}"
+# puts "my_inject method : #{[2, 4, 5].my_inject(2) { |result, element| result + element }}"
 
-# def multiply_els(arr)
-#   arr.my_inject { |acc, nxt| acc * nxt }
-# end
+def multiply_els(arr)
+  arr.my_inject { |acc, nxt| acc * nxt }
+end
 
-# puts multiply_els([2, 4, 5])
+puts multiply_els([2, 4, 5])
