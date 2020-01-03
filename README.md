@@ -71,12 +71,10 @@ hash = {}
 Ruby needs to be installed.
 
 ## Built with
-<ul>
-  <p>This project was built with:</p>
-  <li>Ruby</li>
-  <li>Linux OS</li>
-  <li>VS Code</li>
-</ul>
+* [Ruby](https://www.ruby-lang.org/en/) - Programming language used
+* [VS Code](https://code.visualstudio.com/) - The code editor used
+* [Ubuntu](https://www.linux.org/pages/download/) - Operating System
+
 
 ## 🏠 [Homepage](https://github.com/ClintonEnyinna/enumerable_methods)
 
