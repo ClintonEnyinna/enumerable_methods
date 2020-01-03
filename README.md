@@ -19,7 +19,7 @@
   <li>Ruby</li>
 </ul>
 
-## 🏠 [Homepage](https://github.com/simoxsimo/Resposive-Thenextweb-Clone)
+## 🏠 [Homepage](https://github.com/ClintonEnyinna/enumerable_methods)
 
 ## Author
 
