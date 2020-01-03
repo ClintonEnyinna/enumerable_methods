@@ -14,10 +14,68 @@
 
 >Rebuild of some of the most used Enumerable methods (each, each_with_index, select, all?, any?, none?, count, map, inject) practicing the use of "yield" and "Proc"
 
+## Getting Started
+
+One can either download the enumerable.rb and include it to its project.
+
+## How to Use
+
+**my_each:**
+```
+[12, 2, 4, 56, 34].my_each { |int| print (int * 2).to_s + " " } => 24 4 8 112 68
+```
+
+**my_each_with_index:**
+```
+hash = {}
+%w[cat dog wombat].my_each_with_index { |item, index| hash[item] = index } => {"cat"=>0, "dog"=>1, "wombat"=>2}
+```
+
+**my_select:**
+```
+(1..10).my_select { |i| i % 3 == 0 } => [3, 6, 9]
+```
+
+**my_all?:**
+```
+[1, 2i, 3.14].my_all?(Numeric) => true
+```
+
+**my_any?:**
+```
+%w[ant bear cat].my_any?(/d/) => false
+```
+
+**my_none?:**
+```
+%w{ant bear cat}.my_none? { |word| word.length == 5 } => true
+```
+
+**my_count:**
+```
+[1, 2, 4, 2].my_count{ |x| x % 2 == 0 } => 3
+```
+
+**my_map:**
+```
+[3, 23, 45, 34].my_map { |i| i * i } => [9, 529, 2025, 1156]
+```
+
+**my_inject:**
+```
+(5..10).my_inject(1) { |product, n| product * n } => 151200
+```
+
+### Prerequisites
+
+Ruby needs to be installed.
+
 ## Built with
 <ul>
   <p>This project was built with:</p>
   <li>Ruby</li>
+  <li>Linux OS</li>
+  <li>VS Code</li>
 </ul>
 
 ## 🏠 [Homepage](https://github.com/ClintonEnyinna/enumerable_methods)
