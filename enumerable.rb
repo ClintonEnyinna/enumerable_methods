@@ -30,37 +30,34 @@ module Enumerable
     arr
   end
 
-  def my_all?(arg=false)
+  def my_all?(arg = false)
     to_a.my_each { |num| return false unless yield num } if block_given?
-      
-    to_a.my_each { |obj| return false unless obj} unless arg
-    if arg.class.to_s === "Regexp"
+    to_a.my_each { |obj| return false unless obj } unless arg
+    if arg.class.to_s == 'Regexp'
       to_a.my_each { |obj| return false unless arg.match? obj.to_s }
-    elsif arg.class.to_s === "Class"
+    elsif arg.class.to_s == 'Class'
       to_a.my_each { |obj| return false unless obj.is_a? arg }
     end
     true
   end
 
-  def my_any?(arg=true)
+  def my_any?(arg = true)
     to_a.my_each { |num| return true if yield num } if block_given?
-      
-    to_a.my_each { |obj| return true if obj} if arg 
-    if arg.class.to_s === "Regexp"
+    to_a.my_each { |obj| return true if obj } if arg
+    if arg.class.to_s == 'Regexp'
       to_a.my_each { |obj| return true if arg.match? obj.to_s }
-    elsif arg.class.to_s === "Class"
+    elsif arg.class.to_s == 'Class'
       to_a.my_each { |obj| return true if obj.is_a? arg }
     end
     false
   end
 
-  def my_none?(arg=true)
+  def my_none?(arg = true)
     to_a.my_each { |num| return false if yield num } if block_given?
-      
-    to_a.my_each { |obj| return false if obj} if arg 
-    if arg.class.to_s === "Regexp"
+    to_a.my_each { |obj| return false if obj } if arg
+    if arg.class.to_s == 'Regexp'
       to_a.my_each { |obj| return false if arg.match? obj.to_s }
-    elsif arg.class.to_s === "Class"
+    elsif arg.class.to_s == 'Class'
       to_a.my_each { |obj| return false if obj.is_a? arg }
     end
     true
@@ -88,6 +85,7 @@ module Enumerable
 
   def my_map
     return to_enum unless block_given?
+
     arr = []
     to_a.my_each do |item|
       arr.push(yield item)
@@ -97,10 +95,9 @@ module Enumerable
 
   def my_inject(arg = false)
     if arg
-      puts "#{arg.class}"
-      if arg.class.to_s === 'Symbol' && !block_given?
+      if arg.class.to_s == 'Symbol' && !block_given?
         acc = to_a[0]
-        (1...to_a.length).my_each { |i| acc = acc.send(arg.to_s, to_a[i])}
+        (1...to_a.length).my_each { |i| acc = acc.send(arg.to_s, to_a[i]) }
       else
         acc = arg
         (0...to_a.length).my_each { |i| acc = yield(acc, to_a[i]) }
@@ -152,8 +149,8 @@ end
 # puts "my_map method : #{[1, 2, 3, 4].my_map(&test_block)}"
 
 # my_inject
-puts "my_inject method : #{[2, 4, 5].my_inject(:-)}"
-puts "my_inject method : #{[2, 4, 5].my_inject {|num, sum| num + sum}}"
+# puts "my_inject method : #{[2, 4, 5].my_inject(:-)}"
+# puts "my_inject method : #{[2, 4, 5].my_inject {|num, sum| num + sum}}"
 
 # def multiply_els(arr)
 #   arr.my_inject { |acc, nxt| acc * nxt }
