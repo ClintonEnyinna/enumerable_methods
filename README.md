@@ -28,7 +28,8 @@ One can either download the enumerable.rb and include it to its project.
 **my_each_with_index:**
 ```
 hash = {}
-%w[cat dog wombat].my_each_with_index { |item, index| hash[item] = index } => {"cat"=>0, "dog"=>1, "wombat"=>2}
+%w[cat dog wombat].my_each_with_index { |item, index| hash[item] = index } 
+=> {"cat"=>0, "dog"=>1, "wombat"=>2}
 ```
 
 **my_select:**
