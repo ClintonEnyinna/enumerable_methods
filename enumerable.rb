@@ -4,16 +4,19 @@ module Enumerable
   def my_each
     return to_enum unless block_given?
 
-    each do |i|
-      yield i
+    i = 0
+    loop do
+      yield to_a[i]
+      i += 1
+      break if i == to_a.length
     end
-    self
+    to_a
   end
 
   def my_each_with_index
     return to_enum unless block_given?
 
-    (0...to_a.length).each do |i|
+    (0...to_a.length).my_each do |i|
       yield(to_a[i], i)
     end
     self
@@ -37,17 +40,24 @@ module Enumerable
       to_a.my_each { |obj| return false unless arg.match? obj.to_s }
     elsif arg.class.to_s == 'Class'
       to_a.my_each { |obj| return false unless obj.is_a? arg }
+    else
+      to_a.my_each { |obj| return false unless obj == arg }
     end
     true
   end
 
-  def my_any?(arg = true)
+  def my_any?(arg = false)
     to_a.my_each { |num| return true if yield num } if block_given?
-    to_a.my_each { |obj| return true if obj } if arg
-    if arg.class.to_s == 'Regexp'
-      to_a.my_each { |obj| return true if arg.match? obj.to_s }
-    elsif arg.class.to_s == 'Class'
-      to_a.my_each { |obj| return true if obj.is_a? arg }
+    if arg && to_a.length.positive?
+      if arg.class.to_s == 'Regexp'
+        to_a.my_each { |obj| return true if arg.match? obj.to_s }
+      elsif arg.class.to_s == 'Class'
+        to_a.my_each { |obj| return true if obj.is_a? arg }
+      else
+        to_a.my_each { |obj| return true if obj == arg }
+      end
+    elsif to_a.length.positive?
+      to_a.my_each { |obj| return true if obj }
     end
     false
   end
@@ -111,7 +121,7 @@ module Enumerable
 end
 
 # my_each
-# puts (5..10).my_each
+# (5..10).my_each { |num| puts num }
 
 # my_each_with_index
 # (5..10).my_each_with_index { |num, index| puts "#{num} #{index}" }
@@ -125,13 +135,15 @@ end
 # puts "my_all? method : #{[18, 22, 33, 3, 5].my_all? {|num| num > 2}}"
 # puts "my_all? method : #{[nil, true, 99].my_all?}"
 # puts "my_all? method : #{[].my_all?}"
+# puts [3, 3, 3].my_all?(3)
 
 # my_any?
 # puts "my_any? method : #{[18, 22, 33, 3, 5, '6'].my_any?(Numeric)}"
 # puts "my_any? method : #{%w[ cat bat cup ].my_any?(/t/)}"
 # puts "my_any? method : #{[18, 22, 33, 3, 5].my_any? {|num| num > 2}}"
 # puts "my_any? method : #{[nil, true, 99].my_any?}"
-# puts "my_any? method : #{[].my_any?}"
+puts "my_any? method : #{[].my_any?}"
+# puts [1, 2 , 3].my_any?
 
 # my_none?
 # puts "my_none? method : #{%w{ant bear cat}.my_none? { |word| word.length >= 4 }}"
