@@ -34,21 +34,26 @@ module Enumerable
   end
 
   def my_all?(arg = false)
-    to_a.my_each { |num| return false unless yield num } if block_given?
-    to_a.my_each { |obj| return false unless obj } unless arg
-    if arg.class.to_s == 'Regexp'
-      to_a.my_each { |obj| return false unless arg.match? obj.to_s }
-    elsif arg.class.to_s == 'Class'
-      to_a.my_each { |obj| return false unless obj.is_a? arg }
-    else
-      to_a.my_each { |obj| return false unless obj == arg }
+    if block_given?
+      to_a.my_each { |num| return false unless yield num } 
+    elsif arg && to_a.length.positive?
+      if arg.class.to_s == 'Regexp'
+        to_a.my_each { |obj| return false unless arg.match? obj.to_s }
+      elsif arg.class.to_s == 'Class'
+        to_a.my_each { |obj| return false unless obj.is_a? arg }
+      else
+        to_a.my_each { |obj| return false unless obj == arg }
+      end
+    elsif to_a.length.positive?
+      to_a.my_each { |obj| return false unless obj }
     end
     true
   end
 
   def my_any?(arg = false)
-    to_a.my_each { |num| return true if yield num } if block_given?
-    if arg && to_a.length.positive?
+    if block_given?
+      to_a.my_each { |num| return true if yield num } 
+    elsif arg && to_a.length.positive?
       if arg.class.to_s == 'Regexp'
         to_a.my_each { |obj| return true if arg.match? obj.to_s }
       elsif arg.class.to_s == 'Class'
@@ -62,13 +67,19 @@ module Enumerable
     false
   end
 
-  def my_none?(arg = true)
-    to_a.my_each { |num| return false if yield num } if block_given?
-    to_a.my_each { |obj| return false if obj } if arg
-    if arg.class.to_s == 'Regexp'
-      to_a.my_each { |obj| return false if arg.match? obj.to_s }
-    elsif arg.class.to_s == 'Class'
-      to_a.my_each { |obj| return false if obj.is_a? arg }
+  def my_none?(arg = false)
+    if block_given?
+      to_a.my_each { |num| return false if yield num } 
+    elsif arg && to_a.length.positive?
+      if arg.class.to_s == 'Regexp'
+        to_a.my_each { |obj| return false if arg.match? obj.to_s }
+      elsif arg.class.to_s == 'Class'
+        to_a.my_each { |obj| return false if obj.is_a? arg }
+      else
+        to_a.my_each { |obj| return false if obj == arg }
+      end
+    elsif to_a.length.positive?
+      to_a.my_each { |obj| return false if obj }
     end
     true
   end
@@ -133,23 +144,25 @@ end
 # puts "my_all? method : #{[18, 22, 33, 3, 5, '6'].my_all?(Numeric)}"
 # puts "my_all? method : #{%w[ cat bat cup ].my_all?(/t/)}"
 # puts "my_all? method : #{[18, 22, 33, 3, 5].my_all? {|num| num > 2}}"
-# puts "my_all? method : #{[nil, true, 99].my_all?}"
+# puts "my_all? method : #{[true, true, false].my_all?}"
 # puts "my_all? method : #{[].my_all?}"
-# puts [3, 3, 3].my_all?(3)
+# puts "my_all? method : #{[3, 3, 3].my_all?(3)}"
 
 # my_any?
 # puts "my_any? method : #{[18, 22, 33, 3, 5, '6'].my_any?(Numeric)}"
-# puts "my_any? method : #{%w[ cat bat cup ].my_any?(/t/)}"
+# puts "my_any? method : #{%w[ cat bat cup ].my_any?(/d/)}"
 # puts "my_any? method : #{[18, 22, 33, 3, 5].my_any? {|num| num > 2}}"
 # puts "my_any? method : #{[nil, true, 99].my_any?}"
-puts "my_any? method : #{[].my_any?}"
-# puts [1, 2 , 3].my_any?
+# puts "my_any? method : #{[].my_any?}"
+# puts [1, 2, 3].my_any?(4)
 
 # my_none?
 # puts "my_none? method : #{%w{ant bear cat}.my_none? { |word| word.length >= 4 }}"
 # puts "my_none? method : #{%w{ant bear cat}.none?(/d/)}"
 # puts "my_none? method : #{[1, 3.14, 42].none?(Float)}"
-# puts "my_none? method : #{[nil, false, true].my_none? }"
+# puts "my_none? method : #{[nil, false].my_none? }"
+# puts "my_none? method : #{[1, 2 , 3].my_none?}"
+# puts "my_none? method : #{[].my_none?}"
 
 # my_count
 # puts "my_count method : #{[18, 22, 33, 22, 4].my_count(22)}"
