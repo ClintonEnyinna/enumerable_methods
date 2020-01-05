@@ -115,7 +115,7 @@ module Enumerable
   end
 
   def my_inject(*args)
-    if args && !block_given?
+    if args[0] && !block_given?
       if args.length == 2 && args[1].class.to_s == 'Symbol'
         acc = args[0]
         (0...to_a.length).my_each { |i| acc = acc.send(args[1].to_s, to_a[i]) }
@@ -126,6 +126,9 @@ module Enumerable
         acc = args
         (0...to_a.length).my_each { |i| acc = yield(acc, to_a[i]) }
       end
+    elsif args[0] && block_given?
+      acc = args[0]
+      (0...to_a.length).my_each { |i| acc = yield(acc, to_a[i]) }
     else
       acc = to_a[0]
       (1...to_a.length).my_each { |i| acc = yield(acc, to_a[i]) }
@@ -178,6 +181,7 @@ end
 
 # my_inject
 # puts "my_inject method : #{ [2, 4, 5].my_inject(:-) }"
+# puts "my_inject method : #{ [2, 4, 5].my_inject(3) {|num, sum| num + sum} }"
 # puts "my_inject method : #{ [2, 4, 5].my_inject {|num, sum| num + sum} }"
 # puts "my_inject method : #{ [2, 4, 5].my_inject(9, :+)} "
 
