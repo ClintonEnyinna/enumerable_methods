@@ -114,13 +114,16 @@ module Enumerable
     arr
   end
 
-  def my_inject(arg = false)
-    if arg
-      if arg.class.to_s == 'Symbol' && !block_given?
+  def my_inject(*args)
+    if args && !block_given?
+      if args.length == 2 && args[1].class.to_s == 'Symbol'
+        acc = args[0]
+        (0...to_a.length).my_each { |i| acc = acc.send(args[1].to_s, to_a[i]) }
+      elsif args[0].class.to_s == 'Symbol'
         acc = to_a[0]
-        (1...to_a.length).my_each { |i| acc = acc.send(arg.to_s, to_a[i]) }
+        (1...to_a.length).my_each { |i| acc = acc.send(args[0].to_s, to_a[i]) }
       else
-        acc = arg
+        acc = args
         (0...to_a.length).my_each { |i| acc = yield(acc, to_a[i]) }
       end
     else
@@ -174,8 +177,9 @@ end
 # puts "my_map method : #{[1, 2, 3, 4].my_map(&test_block)}"
 
 # my_inject
-# puts "my_inject method : #{[2, 4, 5].my_inject(:-)}"
-# puts "my_inject method : #{[2, 4, 5].my_inject {|num, sum| num + sum}}"
+puts "my_inject method : #{[2, 4, 5].my_inject(:-)}"
+puts "my_inject method : #{[2, 4, 5].my_inject {|num, sum| num + sum}}"
+puts "my_inject method : #{[2, 4, 5].my_inject(9, :+)}"
 
 # def multiply_els(arr)
 #   arr.my_inject { |acc, nxt| acc * nxt }
