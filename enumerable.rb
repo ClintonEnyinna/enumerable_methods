@@ -35,7 +35,7 @@ module Enumerable
 
   def my_all?(arg = false)
     if block_given?
-      to_a.my_each { |num| return false unless yield num } 
+      to_a.my_each { |num| return false unless yield num }
     elsif arg && to_a.length.positive?
       if arg.class.to_s == 'Regexp'
         to_a.my_each { |obj| return false unless arg.match? obj.to_s }
@@ -52,7 +52,7 @@ module Enumerable
 
   def my_any?(arg = false)
     if block_given?
-      to_a.my_each { |num| return true if yield num } 
+      to_a.my_each { |num| return true if yield num }
     elsif arg && to_a.length.positive?
       if arg.class.to_s == 'Regexp'
         to_a.my_each { |obj| return true if arg.match? obj.to_s }
@@ -69,7 +69,7 @@ module Enumerable
 
   def my_none?(arg = false)
     if block_given?
-      to_a.my_each { |num| return false if yield num } 
+      to_a.my_each { |num| return false if yield num }
     elsif arg && to_a.length.positive?
       if arg.class.to_s == 'Regexp'
         to_a.my_each { |obj| return false if arg.match? obj.to_s }
@@ -177,9 +177,9 @@ end
 # puts "my_map method : #{[1, 2, 3, 4].my_map(&test_block)}"
 
 # my_inject
-puts "my_inject method : #{[2, 4, 5].my_inject(:-)}"
-puts "my_inject method : #{[2, 4, 5].my_inject {|num, sum| num + sum}}"
-puts "my_inject method : #{[2, 4, 5].my_inject(9, :+)}"
+# puts "my_inject method : #{ [2, 4, 5].my_inject(:-) }"
+# puts "my_inject method : #{ [2, 4, 5].my_inject {|num, sum| num + sum} }"
+# puts "my_inject method : #{ [2, 4, 5].my_inject(9, :+)} "
 
 # def multiply_els(arr)
 #   arr.my_inject { |acc, nxt| acc * nxt }
