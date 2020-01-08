@@ -28,7 +28,7 @@ module Enumerable
     arr = []
     to_a.my_each do |num|
       bool = yield num
-      bool ? arr.push(num) : ""
+      bool ? arr.push(num) : ''
     end
     arr
   end
@@ -37,9 +37,9 @@ module Enumerable
     if block_given?
       to_a.my_each { |num| return false unless yield num }
     elsif arg && to_a.length.positive?
-      if arg.class.to_s == "Regexp"
+      if arg.class.to_s == 'Regexp'
         to_a.my_each { |obj| return false unless arg.match? obj.to_s }
-      elsif arg.class.to_s == "Class"
+      elsif arg.class.to_s == 'Class'
         to_a.my_each { |obj| return false unless obj.is_a? arg }
       else
         to_a.my_each { |obj| return false unless obj == arg }
@@ -54,9 +54,9 @@ module Enumerable
     if block_given?
       to_a.my_each { |num| return true if yield num }
     elsif arg && to_a.length.positive?
-      if arg.class.to_s == "Regexp"
+      if arg.class.to_s == 'Regexp'
         to_a.my_each { |obj| return true if arg.match? obj.to_s }
-      elsif arg.class.to_s == "Class"
+      elsif arg.class.to_s == 'Class'
         to_a.my_each { |obj| return true if obj.is_a? arg }
       else
         to_a.my_each { |obj| return true if obj == arg }
@@ -71,9 +71,9 @@ module Enumerable
     if block_given?
       to_a.my_each { |num| return false if yield num }
     elsif arg && to_a.length.positive?
-      if arg.class.to_s == "Regexp"
+      if arg.class.to_s == 'Regexp'
         to_a.my_each { |obj| return false if arg.match? obj.to_s }
-      elsif arg.class.to_s == "Class"
+      elsif arg.class.to_s == 'Class'
         to_a.my_each { |obj| return false if obj.is_a? arg }
       else
         to_a.my_each { |obj| return false if obj == arg }
@@ -86,7 +86,7 @@ module Enumerable
 
   def my_count(arg = false)
     if block_given?
-      return "Error: arg and block not allowed at the same time" if arg
+      return 'Error: arg and block not allowed at the same time' if arg
 
       count = 0
       to_a.my_each do |item|
@@ -116,10 +116,10 @@ module Enumerable
 
   def my_inject(*args)
     if args[0] && !block_given?
-      if args.length == 2 && args[1].class.to_s == "Symbol"
+      if args.length == 2 && args[1].class.to_s == 'Symbol'
         acc = args[0]
         (0...to_a.length).my_each { |i| acc = acc.send(args[1].to_s, to_a[i]) }
-      elsif args[0].class.to_s == "Symbol"
+      elsif args[0].class.to_s == 'Symbol'
         acc = to_a[0]
         (1...to_a.length).my_each { |i| acc = acc.send(args[0].to_s, to_a[i]) }
       else
