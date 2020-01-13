@@ -12,11 +12,11 @@
 
 ## Description of the project 
 
->Rebuild of some of the most used Enumerable methods (each, each_with_index, select, all?, any?, none?, count, map, inject) practicing the use of "yield" and "Proc"
+>Rebuild of some of the most used Enumerable methods (each, each_with_index, select, all?, any?, none?, count, map, inject) practicing the use of "yield" and "Proc" and testing them with Rspec to make sure they have the same functionality.
 
 ## Getting Started
 
-You can download the enumerable.rb file and include it in your project.
+You can download the enumerable.rb file and include it in your project. (require './enumerable.rb')
 
 ## How to Use
 
