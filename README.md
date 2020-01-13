@@ -16,7 +16,7 @@
 
 ## Getting Started
 
-One can either download the enumerable.rb and include it to its project.
+You can download the enumerable.rb and include it in your project.
 
 ## How to Use
 
