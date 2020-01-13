@@ -16,7 +16,10 @@
 
 ## Getting Started
 
-You can download the enumerable.rb file and include it in your project. (require './enumerable.rb')
+You can download the enumerable.rb file and include it in your project. 
+```ruby
+require './enumerable.rb'
+```
 
 ## How to Use
 
