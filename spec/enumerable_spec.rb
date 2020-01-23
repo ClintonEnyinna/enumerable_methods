@@ -23,7 +23,7 @@ describe Enumerable do
 
   describe '#my_select' do
     it 'return array which elements divide with three from range' do
-      expect((1..10).my_select { |i| i % 3 == 0 }).to eql([3, 6, 9])
+      expect((1..10).my_select { |i| i % 3.zero? }).to eql([3, 6, 9])
     end
 
     it 'return array which elements are even from array' do
