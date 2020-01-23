@@ -12,58 +12,61 @@
 
 ## Description of the project 
 
->Rebuild of some of the most used Enumerable methods (each, each_with_index, select, all?, any?, none?, count, map, inject) practicing the use of "yield" and "Proc"
+>Rebuild of some of the most used Enumerable methods (each, each_with_index, select, all?, any?, none?, count, map, inject) practicing the use of "yield" and "Proc" and testing them with Rspec to make sure they have the same functionality.
 
 ## Getting Started
 
-One can either download the enumerable.rb and include it to its project.
+You can download the enumerable.rb file and include it in your project. 
+```ruby
+require './enumerable.rb'
+```
 
 ## How to Use
 
 **my_each:**
-```
+```ruby
 [12, 2, 4, 56, 34].my_each { |int| print (int * 2).to_s + " " } => 24 4 8 112 68
 ```
 
 **my_each_with_index:**
-```
+```ruby
 hash = {}
 %w[cat dog wombat].my_each_with_index { |item, index| hash[item] = index } 
 => {"cat"=>0, "dog"=>1, "wombat"=>2}
 ```
 
 **my_select:**
-```
+```ruby
 (1..10).my_select { |i| i % 3 == 0 } => [3, 6, 9]
 ```
 
 **my_all?:**
-```
+```ruby
 [1, 2i, 3.14].my_all?(Numeric) => true
 ```
 
 **my_any?:**
-```
+```ruby
 %w[ant bear cat].my_any?(/d/) => false
 ```
 
 **my_none?:**
-```
+```ruby
 %w{ant bear cat}.my_none? { |word| word.length == 5 } => true
 ```
 
 **my_count:**
-```
+```ruby
 [1, 2, 4, 2].my_count{ |x| x % 2 == 0 } => 3
 ```
 
 **my_map:**
-```
+```ruby
 [3, 23, 45, 34].my_map { |i| i * i } => [9, 529, 2025, 1156]
 ```
 
 **my_inject:**
-```
+```ruby
 (5..10).my_inject(1) { |product, n| product * n } => 151200
 ```
 
